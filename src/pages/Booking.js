@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
-import { CarView2 } from "./component/CarView2"
+import { CarViewFullSize } from "./component/CarViewFullSize"
 import  FooterView from "./component/FooterView"
 import { Navbar } from "./component/Navigation"
 import { SearchView } from "./component/SearchView"
@@ -98,7 +98,7 @@ function Booking() {
         <div className="car-list pd-v-2">
         {category != "all" ? searchList.filter(item => (item.is_available == true && item.category == category)).map(car => (
               <div key={car.id}  className="pd-v-1">
-                <CarView2
+                <CarViewFullSize
               image={car.images} 
               name={car.name} 
               price={car.price_per_day} rate="4" 
@@ -106,11 +106,11 @@ function Booking() {
               seat={car.seat_number}
               engine={car.engine_type}
               trans={car.transmission_type}
-              onSelected={() => handleClick(car.id)}></CarView2>
+              onSelected={() => handleClick(car.id)}></CarViewFullSize>
               </div>)
             ) : searchList.filter(item => item.is_available == true).map(car => (
               <div key={car.id}  className="pd-v-1">
-                <CarView2
+                <CarViewFullSize
               image={car.images} 
               name={car.name} 
               price={car.price_per_day} rate="4" 
@@ -118,7 +118,7 @@ function Booking() {
               seat={car.seat_number}
               engine={car.engine_type}
               trans={car.transmission_type}
-              onSelected={() => handleClick(car.id)}></CarView2>
+              onSelected={() => handleClick(car.id)}></CarViewFullSize>
               </div>)
             )}
         </div>

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Card from "./component/Card";
-import { CarView2 } from "./component/CarView2";
+import { CarViewFullSize } from "./component/CarViewFullSize";
 import { Navbar } from "./component/Navigation";
 import { SucceessfulCard } from "./component/SuccessfulCard";
 import TelebirrForm from "./component/TelebirrForm";
@@ -76,10 +76,10 @@ import Button from "./component/Button";
     return <div className="container-padding-small">
         <div className="center-align">
             <div>
-                <CarView2 image={bookedCar.images} name={bookedCar.name} 
+                <CarViewFullSize image={bookedCar.images} name={bookedCar.name} 
                   seat={bookedCar.seat_number}
                   engine={bookedCar.engine_type}
-                  trans={bookedCar.transmission_type}></CarView2>
+                  trans={bookedCar.transmission_type}></CarViewFullSize>
                 <div className="gap-meduim">
                     {(status == "NOT PAID") ? 
                     <form onSubmit={handleSubmit}>

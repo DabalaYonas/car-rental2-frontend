@@ -1,7 +1,7 @@
 import BoxIcon from "./BoxIcon";
 import Button from "./Button";
 
-export function CarView2(props) {
+export function CarViewFullSize(props) {
     let engine = props.engine;
     let engineClass = props.engine;
     let transm = props.trans;

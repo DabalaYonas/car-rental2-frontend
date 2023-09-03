@@ -6,7 +6,7 @@ import { useState } from "react"
 import BookStatus from "./BookStatus"
 import axios from "axios"
 import { useLocation, useNavigate } from "react-router-dom"
-import { CarView2 } from "./component/CarView2"
+import { CarViewFullSize } from "./component/CarViewFullSize";
 import { Navbar } from "./component/Navigation"
 import FooterView from "./component/FooterView"
 
@@ -16,15 +16,6 @@ const BE = "CBE"
 const CHAPA = "CHAPA"
 const NOT_PAID = "NOT PAID"
 
-
-async function updateCar(driverItem) {
-    return axios.post("http://127.0.0.1:8000/booking/driver/api/", driverItem).then(response=>response.data);
-}
-
-async function updateBooking(driverItem) {
-    return axios.post("http://127.0.0.1:8000/booking/driver/api/", driverItem).then(response=>response.data);
-}
-
 async function updateDriver(driverItem) {
     return axios.post("http://127.0.0.1:8000/booking/driver/api/", driverItem).then(response=>response.data);
 }
@@ -33,6 +24,8 @@ function Checkout(props) {
     const navigate = useNavigate();
     const state = useLocation().state;
     const {bookedCar, returndate, pickupdate, day_period} = state;
+    const [inputs, setInputs] = useState({});
+    const [method, setMethod] = useState(TELEBIRR);
     var totalPrice = bookedCar.price_per_day * day_period;
 
     var carDetails = [{"Car name": bookedCar.name, 
@@ -44,11 +37,6 @@ function Checkout(props) {
                 "price per day": bookedCar.price_per_day + " ETB",
             },
             {"Total": totalPrice + " ETB"}]
-
-    const [inputs, setInputs] = useState({});
-    const [method, setMethod] = useState(TELEBIRR);
-    var [isBooked, setIsBook] = useState(false);
-    var [payment, setPayment] = useState(false);
 
     function handlerChange(e) {
         if(e.target.name == "method") {
@@ -69,7 +57,8 @@ function Checkout(props) {
             "last_name": inputs.lastname,
             "email": inputs.email,
             "phone_number": inputs.phonenumber,
-            "age": inputs.age
+            "age": inputs.age,
+            "gender": inputs.gender
         };
         
         updateDriver(driverItem).then(r1=> {
@@ -94,9 +83,7 @@ function Checkout(props) {
                 };
 
                 axios.post("http://127.0.0.1:8000/booking/payment/api/", paymentItem).then(r3=>r3.data).then(r4=>{
-                    setPayment(r4);
                     navigate("/payment", {state: {driverDetails: inputs, carDetails: carDetails, payment: r4, bookedCar: bookedCar}});
-                    setIsBook(true);
                 });
 
             });
@@ -109,10 +96,10 @@ function Checkout(props) {
 <Navbar bg="nav-bg box-shadow"></Navbar>
     <div className="center-align main">
         <div>
-        <CarView2 image={bookedCar.images} name={bookedCar.name} 
+        <CarViewFullSize image={bookedCar.images} name={bookedCar.name} 
                   seat={bookedCar.seat_number}
                   engine={bookedCar.engine_type}
-                  trans={bookedCar.transmission_type}></CarView2>
+                  trans={bookedCar.transmission_type}></CarViewFullSize>
 
         <div className="my-card gap-small" style={{width: 700}}>
             <form className="my-card-body" onSubmit={handleSubmit}>
@@ -129,6 +116,14 @@ function Checkout(props) {
                 <div className="input-container">
                     <label>Email</label>
                     <input type="email" placeholder="example@gmail.com" className="input  input-large" name="email" onChange={handlerChange} value={inputs.email} required/>
+                </div>
+                <div className="input-container">
+                    <label>Gender</label>
+                    <select className="input  input-large" onChange={handlerChange} name="gender" value={inputs.gender}>
+                        <option value="">Select your gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                 </div>
                 <div className="input-container">
                     <label>Age</label>
