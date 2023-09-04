@@ -24,6 +24,10 @@
   z-index: 10;
 }
 
+.navbar ul li .active {
+  color: #eeeeee;
+}
+
 .nav-item-list {
   display: flex;
   align-items: center;
@@ -39,7 +43,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: #eee;
+  color: #c2b9c9;
   font-size: 17px;
   padding: 10px 20px;
   font-weight: 600;
@@ -51,7 +55,7 @@
 }
 
 .my-row {
-  display: flex;
+  display: flex!important;
   padding-top: 30px;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -178,6 +182,11 @@
   justify-content: center;
 }
 
+.align-items-center {
+  display: flex!important;
+  align-items: center;
+}
+
 .box-disc {
   display: flex;
   flex-direction: column;
@@ -215,10 +224,17 @@
   font-size: 30px;
 }
 
+.box-thin {
+  margin-right: 6px;
+  width: 36px;
+  height: 36px;
+  font-size: 20px;
+  border-radius: 6px;
+}
+
 .box-container {
   display: inline-block;
   text-align: center;
-  margin: 10px;
 }
 
 .box-title {
@@ -613,7 +629,15 @@ button * {
 }
 
 .mr-t-1 {
+  margin-top: 10px;
+}
+
+.mr-t-2 {
   margin-top: 20px;
+}
+
+.mr-r-1 {
+  margin-right: 10px;
 }
 
 .mr-b-5 {
@@ -639,8 +663,9 @@ button * {
   align-items: flex-end;
 }
 
-.nav-bg {
-  background-color: #404f5e;
+.nav-bg {    
+  background: #414141d9;
+  backdrop-filter: saturate(170%) blur(15px);
 }
 
 .box-shadow {
@@ -700,4 +725,148 @@ ul {
 
 .checkbox {
   margin: 5px 5px 5px 0px;
+}
+
+.search-filter-card ul li label {
+  cursor: pointer;
+}
+
+.contact-container {
+  height: 100vh;
+  overflow: scroll;
+  background-color: #f0f0f0;
+  padding-top: 85px;
+}
+
+.contact-container h1 {
+  font-family: 'Poppins', sans-serif, 'arial';
+  font-weight: 600;
+  font-size: 72px;
+  color: #232323;
+  text-align: center;
+}
+
+.contact-container h4 {
+  font-family: 'Roboto', sans-serif, 'arial';
+  font-weight: 400;
+  font-size: 20px;
+  color: #585858;
+  line-height: 1.5;
+}
+
+.contact-container input:focus ~ label, textarea:focus ~ label {
+  font-size: 0.75em;
+  color: #999;
+  top: -5px;
+  -webkit-transition: all 0.225s ease;
+  transition: all 0.225s ease;
+}
+
+.contact-container input:valid ~ label, .contact-container textarea:valid ~ label {
+  font-size: 0.75em;
+  color: #999;
+  top: -5px;
+  -webkit-transition: all 0.225s ease;
+  transition: all 0.225s ease;
+}
+
+.contact-container .styled-input {
+  float: left;
+  width: 293px;
+  margin: 1rem 0;
+  position: relative;
+  border-radius: 4px;
+}
+
+@media only screen and (max-width: 768px){
+  .contact-container .styled-input {
+      width:100%;
+  }
+}
+
+.contact-container .styled-input label {
+  color: #999;
+  padding: 1.3rem 30px 1rem 30px;
+  position: absolute;
+  top: 10px;
+  left: 0;
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+.contact-container .styled-input.wide { 
+  width: 650px;
+  max-width: 100%;
+}
+
+.contact-container input,
+textarea {
+  padding: 30px;
+  border: 0;
+  width: 100%;
+  font-size: 1rem;
+  background-color: #ffffff;
+  color: #232323;
+  border-radius: 4px;
+}
+
+.contact-container input:focus,
+textarea:focus { outline: 0; }
+
+.contact-container input:focus ~ span,
+textarea:focus ~ span {
+  width: 100%;
+  -webkit-transition: all 0.075s ease;
+  transition: all 0.075s ease;
+}
+
+.contact-container textarea {
+  width: 100%;
+  min-height: 15em;
+}
+
+.contact-container .input-container {
+  width: 650px;
+  max-width: 100%;
+  margin: 20px auto 25px auto;
+}
+
+.contact-container .submit-btn {
+  float: right;
+  padding: 12px 35px;
+  border-radius: 60px;
+  display: inline-block;
+  background-color: #4b8cfb;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.06),
+            0 2px 10px 0 rgba(0,0,0,0.07);
+  -webkit-transition: all 300ms ease;
+  transition: all 300ms ease;
+}
+
+.contact-container .submit-btn:hover {
+  transform: translateY(1px);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,0.10),
+            0 1px 1px 0 rgba(0,0,0,0.09);
+}
+
+@media (max-width: 768px) {
+  .contact-container .submit-btn {
+      width:100%;
+      float: none;
+      text-align:center;
+  }
+}
+
+.contact-container input[type=checkbox] + label {
+color: #ccc;
+font-style: italic;
+} 
+
+.contact-container input[type=checkbox]:checked + label {
+color: #f00;
+font-style: normal;
 }

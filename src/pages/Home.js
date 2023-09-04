@@ -13,10 +13,10 @@ import { SearchView } from "./component/SearchView"
 function HeroSection() {
 
   return <div className="hero-section">
-    <Navbar bg="nav-bg"></Navbar>
-    <div class="hero-content">
-      <div class="my-row">
-        <div class="my-col">
+    {/* <Navbar bg="nav-bg"></Navbar> */}
+    <div className="hero-content">
+      <div className="my-row">
+        <div className="my-col">
           <div className="pd-v-13 pd-h-4">
             <h3 className="hero-sub-title">Book your future car now</h3>
             <h1 className="hero-title">Easy And <span>Fast Way To Rent</span> Your Car</h1>
@@ -25,7 +25,7 @@ function HeroSection() {
             <p id="bottomBtn" className="invisible">hidden</p>
           </div>
         </div>
-        <div class="my-col">
+        <div className="my-col">
           <img src={image} className="hero-img"/>
         </div>
       </div>
@@ -85,11 +85,11 @@ function Home() {
           <h2 className="title text-center">Our Best Cars</h2>
 
           <div className="my-row center-align">
-            {carsList.filter(item => item.is_available == true).map((car,id) => id < 3 && <CarServiceItem image={car.images} name={car.name} price={car.price_per_day} rate="4"></CarServiceItem>)}
+            {carsList.filter(item => item.is_available == true).map((car,id) => id < 3 && <CarServiceItem key={id} image={car.images} name={car.name} price={car.price_per_day} rate="4"></CarServiceItem>)}
           </div>
           <div className="container-fluid arrow-container">
-            <i class="bi bi-arrow-left-circle-fill"></i>
-            <i class="bi bi-arrow-right-circle-fill"></i>
+            <i className="bi bi-arrow-left-circle-fill"></i>
+            <i className="bi bi-arrow-right-circle-fill"></i>
           </div>
         </div>
 

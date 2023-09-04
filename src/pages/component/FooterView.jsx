@@ -7,9 +7,9 @@ function FooterView() {
           <a className="footer-logo" href="#">Car Rental</a>
           <p className="small-text">Unlock the freedom of the open road with our premier car rental service. Experience seamless journeys, unparalleled convenience, and exceptional value. Book your dream ride today. </p>
           <div className="my-row social-media-icon">
-            <i class="bi bi-facebook"></i>
-            <i class="bi bi-instagram"></i>
-            <i class="bi bi-telegram"></i>
+            <i className="bi bi-facebook"></i>
+            <i className="bi bi-instagram"></i>
+            <i className="bi bi-telegram"></i>
           </div>
         </div>
         <div className="gap-small">
@@ -25,9 +25,9 @@ function FooterView() {
         <div className="gap-small">
           <h2>Contact Us</h2>
           <ul className="footer-links">
-            <li><i class="bi bi-geo-alt"></i> Edena Mall, Bole, Addis Ababa</li>
-            <li><i class="bi bi-phone"></i> +251 910 227023</li>
-            <li><i class="bi bi-telephone"></i> +251 910 227023</li>
+            <li><i className="bi bi-geo-alt"></i> Edena Mall, Bole, Addis Ababa</li>
+            <li><i className="bi bi-phone"></i> +251 910 227023</li>
+            <li><i className="bi bi-telephone"></i> +251 910 227023</li>
           </ul>
         </div>
       </div>

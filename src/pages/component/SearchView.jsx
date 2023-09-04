@@ -32,9 +32,9 @@ export function SearchView(props) {
         </div>
           <form className="center-vertical-2" onSubmit={handleSubmit}>
             <div className="input-container">
-              <label className="large-label"><i class="bi bi-calendar"></i>Select car type</label>
+              <label className="large-label"><i className="bi bi-calendar"></i>Select car type</label>
               <select className="input" onChange={handlerChange} name="type" value={type} required>
-                  <option>Select car type</option>
+                  <option value="">Select car type</option>
                   <option value="all">All</option>
                   <option value="SMALL">Small</option>
                   <option value="MIDSIZE">Midsize</option>
@@ -45,12 +45,12 @@ export function SearchView(props) {
             </div>
 
             <div className="input-container">
-              <label className="large-label"><i class="bi bi-calendar"></i>Pick up date</label>
+              <label className="large-label"><i className="bi bi-calendar"></i>Pick up date</label>
               <input type="date" placeholder="01/01/2023" className="input" name="pickupdate" onChange={handlerChange} value={inputs.pickupdate} min={new Date().toLocaleDateString('fr-ca')} required/>
             </div>
   
             <div className="input-container">
-              <label className="large-label"><i class="bi bi-calendar"></i>Return date</label>
+              <label className="large-label"><i className="bi bi-calendar"></i>Return date</label>
               <input type="date" placeholder="01/01/2023" className="input" name="returndate" onChange={handlerChange} value={inputs.returndate} min={inputs.pickupdate == null ?  (new Date().toLocaleDateString('fr-ca')) : inputs.pickupdate } required/>
             </div>
   

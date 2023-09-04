@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export function Navbar(props) {
+  var loction = useLocation();
   var navigate = useNavigate();
   var [ username, setUsername] = useState();
 
-  useEffect(e => {
-    setUsername();
-  }, [username]);
+  useEffect(()=>{
+    var links = document.getElementsByClassName("nav-link");
+    for(let link of links) {
+        link.classList.remove("active");
+        if (link.pathname === loction.pathname) {
+              link.classList.toggle("active");
+        }
+    }
+}, [loction]);
 
   function handleClick(e) {
     var btn = e.target.name;
@@ -17,24 +24,24 @@ export function Navbar(props) {
       navigate("/register");
     }
   }
-    return <nav className={"navbar pd-v-2 pd-h-6 " + props.bg}>
-    <a className="nav-logo" href="#">Car Rental</a>
-    <ul className="nav-item-list">
-      <li className="nav-item">
-        <Link to="/" className="nav-link" aria-current="page" href="#">Home</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/about" className="nav-link" href="#">About</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/services" className="nav-link" href="#">Services</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/car-list" className="nav-link" href="#">Car List</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/contact" className="nav-link" href="#">Contact</Link>
-      </li>
+    return <nav className={"navbar nav-bg pd-v-2 pd-h-6 " + props.bg}>
+      <a className="nav-logo" href="#">Car Rental</a>
+      <ul className="nav-item-list">
+        <li className="nav-item">
+          <Link to="/" className="nav-link active" aria-current="page" href="#">Home</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/about" className="nav-link" href="#">About</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/services" className="nav-link" href="#">Services</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/car-list" className="nav-link" href="#">Car List</Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/contact" className="nav-link" href="#">Contact</Link>
+        </li>
       {/* {username != null ? <div className="container-fluid">
         <img src={imgProfile} className="profile-img" />
         <p>{username}</p>

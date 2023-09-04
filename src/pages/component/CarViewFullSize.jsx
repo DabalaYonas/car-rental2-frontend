@@ -1,4 +1,5 @@
 import BoxIcon from "./BoxIcon";
+import BoxIconSmall from "./BoxIconSmall";
 import Button from "./Button";
 
 export function CarViewFullSize(props) {
@@ -48,6 +49,7 @@ export function CarViewFullSize(props) {
 
                     <div className="pd-h-2">
                         <h2>{props.name}</h2>
+                        {props.withdriver && <div className="mr-t-1"><BoxIconSmall title="With driver" iconClass="bi bi-person-fill-check"></BoxIconSmall></div>}
                         <p className="small-text">{props.brand}</p>
 
                         <div className="container-fuild gap-small">

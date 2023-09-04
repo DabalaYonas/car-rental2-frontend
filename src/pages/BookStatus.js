@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Card from "./component/Card";
@@ -10,6 +9,10 @@ import {getPayments} from "./datas/payments";
 import axios from "axios";
 import Button from "./component/Button";
  
+const PENDING = 'PENDING';
+const PAID = 'PAID';
+const NOT_PAID = 'NOT PAID';
+
  function BookStatus() {
     const state = useLocation().state;
     const { driverDetails, carDetails, payment, bookedCar } = state;
@@ -28,27 +31,27 @@ import Button from "./component/Button";
         if(phonenumber >= 9) {
             var paymentItem = payment;
             paymentItem.tnx_id = phonenumber;
-            paymentItem.status = "PENDING";
+            paymentItem.status = PENDING;
             axios.put("http://127.0.0.1:8000/booking/payment/api/" + paymentItem.id + "/", paymentItem).then(data=>{
-                setStatus(data.status);
-                setTnxId(data.tnx_id);
-                changeStatusColor(data.status);
+                setStatus(PENDING);
+                setTnxId(phonenumber);
+                changeStatusColor(PENDING);
             });
         }
     }
 
     function changeStatusColor(s) {
         switch (s) {
-            case "NOT PAID":
+            case NOT_PAID:
                 setStatusColor("red");
                 break;
 
-            case "PENDING":
-                setStatusColor("purple");
+            case PENDING:
+                setStatusColor("green");
                 break;
 
-            case "PAID":
-                setStatusColor("green");
+            case PAID:
+                setStatusColor("blue");
                 break;
         }
     }
@@ -66,20 +69,29 @@ import Button from "./component/Button";
 
     }, []);
     
-    var driverDetail = {
-                "Full name": driverDetails.firstname + " " + driverDetails.lastname, 
-                "Age": driverDetails.age,
-                "Phone number": driverDetails.phonenumber,
-                "Email": driverDetails.email,
-            };
+    let driverDetail;
+    if (bookedCar.with_driver) {
+        driverDetail = driverDetails;
+    } else {
+        driverDetail = {
+            "Full name": driverDetails.firstname + " " + driverDetails.lastname, 
+            "Age": driverDetails.age,
+            "Phone number": driverDetails.phonenumber,
+            "Email": driverDetails.email,
+        };
+    }
 
-    return <div className="container-padding-small">
+    return <div className="main">
         <div className="center-align">
             <div>
-                <CarViewFullSize image={bookedCar.images} name={bookedCar.name} 
+                <CarViewFullSize 
+                  image={bookedCar.images} 
+                  name={bookedCar.name} 
                   seat={bookedCar.seat_number}
                   engine={bookedCar.engine_type}
-                  trans={bookedCar.transmission_type}></CarViewFullSize>
+                  trans={bookedCar.transmission_type}
+                  withdriver={bookedCar.with_driver}
+                  ></CarViewFullSize>
                 <div className="gap-meduim">
                     {(status == "NOT PAID") ? 
                     <form onSubmit={handleSubmit}>

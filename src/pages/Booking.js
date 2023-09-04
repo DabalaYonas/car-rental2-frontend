@@ -7,9 +7,10 @@ import { SearchView } from "./component/SearchView"
 import { getCars } from "./datas/cars"
 
 function Booking() {
+  const navigate = useNavigate();
   const state = useLocation().state;
   const { returndate, pickupdate, day_period, category } = state;
-  const navigate = useNavigate();
+  
   const [carsList, setCarsList] = useState([]);
   const [searchList, setSearchList] = useState([]);
   const [inputs, setInputs] = useState([]);
@@ -27,29 +28,102 @@ function Booking() {
     return () => mounted = false;
   }, [inputs]);
 
-  function filterSearch(input) {
+  function filterSearch(inputs) {
     // console.log(input);
       var result = [];
-      input.forEach(i => {
-        if(i.checked) {
-          var a = carsList.filter(item => (item.transmission_type == i.name.toUpperCase() || item.engine_type == i.name.toUpperCase()));
-          a.forEach(element => {  
-            if(!result.includes(element)) {
-              result.push(element);
-            }
-          });
+      let searchs =[[], [], []];
+      var filted = carsList;
+      inputs.forEach(input => {
+        if(input.checked) {
+          console.log(input.name);
+          filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()
+            || item.transmission_type === input.name.toUpperCase()));
+          
+          // if (input.name === "with_driver" || input.name === "withoutdriver") {
+             
+          //   if(!searchs[0].includes(input.name)) {
+          //     searchs[0].push(input.name);
+          //   }
+          //   // filted = filted.filter(item => (item.with_driver == input.value));
+          // }
+
+          // if (input.name === "hybrid" || input.name === "petrol" || input.name === "diesel" || input.name === "electric") {
+          //   // filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
+          //   if(!searchs[1].includes(input.name)) {
+          //     searchs[1].push(input.name);
+          //   }
+          // }
+          // if (input.name === "automatic" || input.name === "manual") {
+          //   // filted = carsList.filter(item => (item.transmission_type === input.name.toUpperCase())); 
+          //   if(!searchs[2].includes(input.name)) {
+          //     searchs[2].push(input.name);
+          //   }
+          // }
+
+          // switch (input.name) {
+          //   case "with_driver":
+          //     filted = filted.filter(item => (item.with_driver == true));
+          //     break;
+          //   case "withoutdriver":
+          //     filted = filted.filter(item => (item.with_driver == false));
+          //     break;
+
+          //   case "hybrid":
+          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
+          //     break;
+          //   case "petrol":
+          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
+          //     break;
+          //   case "diesel":
+          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
+          //     break;
+          //   case "electric":
+          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
+          //     break;
+
+          //   case "automatic":
+          //     filted = carsList.filter(item => (item.transmission_type == input.name.toUpperCase()));
+          //     break;
+          //   case "manual":
+          //     filted = carsList.filter(item => (item.transmission_type === input.name.toUpperCase()));
+          //     break;
+          
+          //   default:
+          //     break;
+          // }
+          // var filted = filted.filter(item => item.engine_type == input.name.toUpperCase());
+          
         }
       })
 
-      console.log(result);
+      // searchs.forEach((item, index) => {
+      //   item.forEach(search => {
+      //     switch (index) {
+      //       case 0:
+              
+      //         break;
+      //       case 1:
+      //         filted = filted.filter(item => (item.engine_type == search.toUpperCase()));
+      //         break;
+      //       case 2:
+      //         filted = carsList.filter(item => (item.transmission_type === search.toUpperCase())); 
+      //         break;
+      //     }
+      //   });
+      // });
+      
+      filted.forEach(element => {  
+        if(!result.includes(element)) {
+          result.push(element);
+        }
+      });
+      console.log(filted);
   }
 
   function handlerChange(e) {
-    var name = e.target.name;
-    var checked = e.target.checked;
     setInputs(values => ([...values, e.target]));
   }
-// 
+
   function handleClick(car_id) {
     carsList.forEach(car => {
       if(car.id == car_id) {
@@ -63,13 +137,13 @@ function Booking() {
       <div className="main">
       <SearchView input1={category} input2={pickupdate} input3={returndate}></SearchView>
       <div className="center-align">
-        <div className="my-card pd-v-2 mr-t-1" style={{width: "360px"}}>
+        <div className="search-filter-card my-card pd-v-2 mr-t-1" style={{width: "360px"}}>
           <h2>Filter</h2>
           <hr />
           <ul>
             <h3 className="pd-v-1">Driver</h3>
-            <li><label className="small-text"><input type="checkbox" className="checkbox" name="withdriver" onChange={handlerChange} value={inputs.withdriver}/> With driver</label></li>
-            <li><label className="small-text"><input type="checkbox" className="checkbox" name="withoutdriver" onChange={handlerChange} value={inputs.withoutdriver} /> Without driver</label></li>
+            <li><label className="small-text"><input type="checkbox" className="checkbox" name="with_driver" onChange={handlerChange} value="true"/> With driver</label></li>
+            <li><label className="small-text"><input type="checkbox" className="checkbox" name="withoutdriver" onChange={handlerChange} value="false" /> Without driver</label></li>
           </ul>
           <hr />
           <ul>
@@ -106,6 +180,7 @@ function Booking() {
               seat={car.seat_number}
               engine={car.engine_type}
               trans={car.transmission_type}
+              withdriver={car.with_driver}
               onSelected={() => handleClick(car.id)}></CarViewFullSize>
               </div>)
             ) : searchList.filter(item => item.is_available == true).map(car => (
@@ -118,6 +193,7 @@ function Booking() {
               seat={car.seat_number}
               engine={car.engine_type}
               trans={car.transmission_type}
+              withdriver={car.with_driver}
               onSelected={() => handleClick(car.id)}></CarViewFullSize>
               </div>)
             )}
