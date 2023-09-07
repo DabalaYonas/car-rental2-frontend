@@ -20,7 +20,7 @@ function HeroSection() {
           <div className="pd-v-13 pd-h-4">
             <h3 className="hero-sub-title">Book your future car now</h3>
             <h1 className="hero-title">Easy And <span>Fast Way To Rent</span> Your Car</h1>
-            <p className="small-text gap">Unlock the freedom of the open road with our premier car rental service. Experience seamless journeys, unparalleled convenience, and exceptional value. Book your dream ride today. </p>
+            <p className="small-text gap word-spacing">Unlock the freedom of the open road with our premier car rental service. Experience seamless journeys, unparalleled convenience, and exceptional value. Book your dream ride today. </p>
             <Button onClick={() => {window.location.href='#bottomBtn'}} value="Book Now" iconClass="bi bi-car-front-fill"></Button>
             <p id="bottomBtn" className="invisible">hidden</p>
           </div>
@@ -47,7 +47,7 @@ function Home() {
       return () => mounted = false;
     }, []);
 
-  return <>
+  return <div className="smooth-scroll">
         <HeroSection></HeroSection>
         <div className="mr-b-5">
           <SearchView header="Make your trip" subtitle="Rent a your comfartable car from our 90+ cars choice." />
@@ -87,21 +87,21 @@ function Home() {
           <div className="my-row center-align">
             {carsList.filter(item => item.is_available == true).map((car,id) => id < 3 && <CarServiceItem key={id} image={car.images} name={car.name} price={car.price_per_day} rate="4"></CarServiceItem>)}
           </div>
-          <div className="container-fluid arrow-container">
+          {/* <div className="container-fluid arrow-container">
             <i className="bi bi-arrow-left-circle-fill"></i>
             <i className="bi bi-arrow-right-circle-fill"></i>
-          </div>
+          </div> */}
         </div>
 
         <div className="content my-row">
-          <div className="my-col">
+          <div className="col-6" style={{marginLeft: "-300px"}}>
             <img src={imgCar2} className="section-img"/>
           </div>
 
-          <div className="my-col half-col">
+          <div className="col-6 half-col">
             <h3 className="sub-title">Why choose us</h3>
-            <h1 className="hero-title">Feel The <span>Best Experience</span> With Our <span>Rental Deals</span></h1>
-            <div className="my-row ">
+            <h1 className="content-title">Feel The <span>Best Experience</span> With Our <span>Rental Deals</span></h1>
+            <div className="row mr-t-2">
               <div className="box box-large box-circle item-center">
                 <i className="bi bi-car-front-fill"></i>
               </div>
@@ -110,7 +110,7 @@ function Home() {
                 <p className="small-text">We offer a diverse range of vehicles to suit every preference and requirement.</p>
               </div>
             </div>
-            <div className="my-row">
+            <div className="row mr-t-2">
               <div className="box box-large box-circle item-center">
                 <i className="bi bi-car-front-fill"></i>
               </div>
@@ -119,7 +119,7 @@ function Home() {
                 <p className="small-text">We understand the importance of affordability and transparency when it comes to car rentals.</p>
               </div>
             </div>
-            <div className="my-row">
+            <div className="row mr-t-2">
               <div className="box box-large box-circle item-center">
                 <i className="bi bi-car-front-fill"></i>
               </div>
@@ -132,7 +132,7 @@ function Home() {
           </div>
         </div>
        <FooterView></FooterView>
-        </>
+        </div>
 }
 
 export default Home;

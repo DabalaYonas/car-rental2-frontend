@@ -129,7 +129,7 @@ function Checkout() {
             });
         } else {
             driverForm.append("driver_license", imageInput, imageInput.name);
-            addDriver(driverForm).then(r1=> {  
+            addDriver(driverForm, {headers: {'content-type': 'multipart/form-data'}}).then(r1=> {  
                 addCustomer(customerForm).then(customerResponse => {
                     bookingForm.append("booked_driver", r1.id);
                     bookingForm.append("customer", customerResponse.id);

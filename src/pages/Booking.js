@@ -29,94 +29,25 @@ function Booking() {
   }, [inputs]);
 
   function filterSearch(inputs) {
-    // console.log(input);
+
       var result = [];
       let searchs =[[], [], []];
-      var filted = carsList;
+      var filted = searchList;
       inputs.forEach(input => {
         if(input.checked) {
           console.log(input.name);
           filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()
             || item.transmission_type === input.name.toUpperCase()));
-          
-          // if (input.name === "with_driver" || input.name === "withoutdriver") {
-             
-          //   if(!searchs[0].includes(input.name)) {
-          //     searchs[0].push(input.name);
-          //   }
-          //   // filted = filted.filter(item => (item.with_driver == input.value));
-          // }
-
-          // if (input.name === "hybrid" || input.name === "petrol" || input.name === "diesel" || input.name === "electric") {
-          //   // filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
-          //   if(!searchs[1].includes(input.name)) {
-          //     searchs[1].push(input.name);
-          //   }
-          // }
-          // if (input.name === "automatic" || input.name === "manual") {
-          //   // filted = carsList.filter(item => (item.transmission_type === input.name.toUpperCase())); 
-          //   if(!searchs[2].includes(input.name)) {
-          //     searchs[2].push(input.name);
-          //   }
-          // }
-
-          // switch (input.name) {
-          //   case "with_driver":
-          //     filted = filted.filter(item => (item.with_driver == true));
-          //     break;
-          //   case "withoutdriver":
-          //     filted = filted.filter(item => (item.with_driver == false));
-          //     break;
-
-          //   case "hybrid":
-          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
-          //     break;
-          //   case "petrol":
-          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
-          //     break;
-          //   case "diesel":
-          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
-          //     break;
-          //   case "electric":
-          //     filted = filted.filter(item => (item.engine_type == input.name.toUpperCase()));
-          //     break;
-
-          //   case "automatic":
-          //     filted = carsList.filter(item => (item.transmission_type == input.name.toUpperCase()));
-          //     break;
-          //   case "manual":
-          //     filted = carsList.filter(item => (item.transmission_type === input.name.toUpperCase()));
-          //     break;
-          
-          //   default:
-          //     break;
-          // }
-          // var filted = filted.filter(item => item.engine_type == input.name.toUpperCase());
-          
         }
       })
 
-      // searchs.forEach((item, index) => {
-      //   item.forEach(search => {
-      //     switch (index) {
-      //       case 0:
-              
-      //         break;
-      //       case 1:
-      //         filted = filted.filter(item => (item.engine_type == search.toUpperCase()));
-      //         break;
-      //       case 2:
-      //         filted = carsList.filter(item => (item.transmission_type === search.toUpperCase())); 
-      //         break;
-      //     }
-      //   });
-      // });
-      
       filted.forEach(element => {  
         if(!result.includes(element)) {
           result.push(element);
         }
       });
+
+      setSearchList(result);
       console.log(filted);
   }
 
@@ -137,7 +68,7 @@ function Booking() {
       <div className="main">
       <SearchView input1={category} input2={pickupdate} input3={returndate}></SearchView>
       <div className="center-align">
-        <div className="search-filter-card my-card pd-v-2 mr-t-1" style={{width: "360px"}}>
+        {/* <div className="search-filter-card my-card pd-v-2 mr-t-1" style={{width: "360px"}}>
           <h2>Filter</h2>
           <hr />
           <ul>
@@ -168,7 +99,7 @@ function Booking() {
             <li><label className="small-text"><input type="checkbox" className="checkbox" /> ETB 2500 - ETB 3000</label></li>
             <li><label className="small-text"><input type="checkbox" className="checkbox" /> ETB 3000 + </label></li>
           </ul>
-        </div>
+        </div> */}
         <div className="car-list pd-v-2">
         {category != "all" ? searchList.filter(item => (item.is_available == true && item.category == category)).map(car => (
               <div key={car.id}  className="pd-v-1">

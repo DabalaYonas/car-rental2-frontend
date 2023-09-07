@@ -8,6 +8,7 @@ import TelebirrForm from "./component/TelebirrForm";
 import {getPayments} from "./datas/payments";
 import axios from "axios";
 import Button from "./component/Button";
+import FooterView from "./component/FooterView";
  
 const PENDING = 'PENDING';
 const PAID = 'PAID';
@@ -81,7 +82,7 @@ const NOT_PAID = 'NOT PAID';
         };
     }
 
-    return <div className="main">
+    return <><div className="main">
         <div className="center-align">
             <div>
                 <CarViewFullSize 
@@ -116,7 +117,11 @@ const NOT_PAID = 'NOT PAID';
                 <Card title="Payment Details" cardDetails={{"Tnx Id": tnxId}} cardFooter={{"Status": status}} cardFooterColor={statusColor} />
             </div>
         </div>
+
     </div>
+
+    <FooterView></FooterView>
+    </>
  }
 
  export default BookStatus

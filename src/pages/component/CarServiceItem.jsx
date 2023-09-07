@@ -17,7 +17,7 @@ function CarServiceItem(props) {
               <p className="medium-text">{props.price} ETB/day</p>
             </div>
         </div>
-        <div className="container-fuild gap-small">
+        <div className="space-around gap-small">
           <BoxIcon title="4 Seats" iconClass="bi bi-car-front-fill"></BoxIcon>
           <BoxIcon title="AC" iconClass="bi bi-car-front-fill"></BoxIcon>
           <BoxIcon title="Auto" iconClass="bi bi-car-front-fill"></BoxIcon>

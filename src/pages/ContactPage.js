@@ -1,13 +1,14 @@
+import FooterView from "./component/FooterView"
 
 function ContactPage() {
-    return <div className="contact-container">
-	<div className="row">
+    return <><div className="contact-container">
+	<div>
 		<h1>Contact us</h1>
 	</div>
-	<div className="row">
+	<div>
 			<h4 style={{textAlign: "center"}}>We'd love to hear from you!</h4>
 	</div>
-	<div className="row input-container">
+	<div className="input-container">
 			<div className="col-xs-12">
 				<div className="styled-input wide">
 					<input type="text" required />
@@ -37,6 +38,8 @@ function ContactPage() {
 			</div>
 	</div>
 </div>
+<FooterView></FooterView>
+</>
 
 }
 

@@ -28,19 +28,19 @@ export function Navbar(props) {
       <a className="nav-logo" href="#">Car Rental</a>
       <ul className="nav-item-list">
         <li className="nav-item">
-          <Link to="/" className="nav-link active" aria-current="page" href="#">Home</Link>
+          <Link to="/" className="nav-link active" aria-current="page" id="home-link">Home</Link>
         </li>
         <li className="nav-item">
-          <Link to="/about" className="nav-link" href="#">About</Link>
+          <Link to="/about" className="nav-link">About</Link>
         </li>
         <li className="nav-item">
-          <Link to="/services" className="nav-link" href="#">Services</Link>
+          <Link to="/services" className="nav-link">Services</Link>
         </li>
         <li className="nav-item">
-          <Link to="/car-list" className="nav-link" href="#">Car List</Link>
+          <Link to="/car-list" className="nav-link">Car List</Link>
         </li>
         <li className="nav-item">
-          <Link to="/contact" className="nav-link" href="#">Contact</Link>
+          <Link to="/contact" className="nav-link">Contact</Link>
         </li>
       {/* {username != null ? <div className="container-fluid">
         <img src={imgProfile} className="profile-img" />

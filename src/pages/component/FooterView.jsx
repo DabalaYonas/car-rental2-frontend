@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 
 function FooterView() {
     return <><footer>
@@ -15,11 +16,11 @@ function FooterView() {
         <div className="gap-small">
           <h2>Site Map</h2>
           <ul className="footer-links">
-            <li>Home</li>
-            <li>About</li>
-            <li>Services</li>
-            <li>Car List</li>
-            <li>Contact</li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/service">Services</Link></li>
+            <li><Link to="/car-list">Car List</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
         <div className="gap-small">
