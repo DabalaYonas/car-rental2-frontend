@@ -1,26 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button"
 import calcDiff from "./utils/utils"
+import { getCategories } from "./datas/lookups";
 
 export function SearchView(props) {
     const [inputs, setInputs] = useState({pickupdate:props.input2, returndate:props.input3});
-    const [type, setType] = useState(props.input1);
+    const [category, setCategory] = useState(props.input1);
     const navigate = useNavigate();
+    const [categories, setCategories] = useState([]);
+
+    
+    useEffect(() => {
+      let mounted = true;
+      getCategories().then(data => {
+        if(mounted) {
+          setCategories(data);
+        }
+      });
+      return () => mounted = false;
+    }, []);
   
     function handlerChange(e) {
-      if(e.target.name === "type") {
-        setType(e.target.value);
-    } else {var name = e.target.name;
-        var value = e.target.value;
-        setInputs(values => ({...values, [name]: value}))
+      if(e.target.name === "category") {
+        setCategory(e.target.value);
+      } else {var name = e.target.name;
+          var value = e.target.value;
+          setInputs(values => ({...values, [name]: value}))
+      }
     }
-  }
   
     function handleSubmit(e) {
         e.preventDefault();
         const days = calcDiff(inputs.pickupdate, inputs.returndate);
-        navigate("/booking", {state: {day_period: days, pickupdate: inputs.pickupdate, returndate: inputs.returndate, category: type}});
+        navigate("/booking", {state: {day_period: days, pickupdate: inputs.pickupdate, returndate: inputs.returndate, category: category}});
       }
   
       return <div className="small-container">
@@ -33,14 +46,10 @@ export function SearchView(props) {
           <form className="center-vertical-2" onSubmit={handleSubmit}>
             <div className="input-container">
               <label className="large-label"><i className="bi bi-calendar"></i>Select car type</label>
-              <select className="input" onChange={handlerChange} name="type" value={type} required>
-                  <option value="">Select car type</option>
+              <select className="input" onChange={handlerChange} name="category" value={category} required>
+                  <option value="">Select a car type</option>
                   <option value="all">All</option>
-                  <option value="SMALL">Small</option>
-                  <option value="MIDSIZE">Midsize</option>
-                  <option value="SUV">SUV</option>
-                  <option value="PREMUIM">Premuim</option>
-                  <option value="VAN">Van</option>
+                  {categories.map((e, i) => (<option key={i} value={e.id}>{e.category}</option>))}
               </select>
             </div>
 

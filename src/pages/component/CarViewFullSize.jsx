@@ -1,46 +1,52 @@
+import { useState } from "react";
 import BoxIcon from "./BoxIcon";
 import BoxIconSmall from "./BoxIconSmall";
 import Button from "./Button";
+import { getEngine, getTransmission } from "./datas/lookups";
 
 export function CarViewFullSize(props) {
-    let engine = props.engine;
-    let engineClass = props.engine;
-    let transm = props.trans;
-    let transmClass = props.trans;
+    const [engine, setEngine] = useState();
+    const [engineClass, setEngineClass] = useState();
+    const [transm, setTransm] = useState();
+    const [transmClass, setTransmClass] = useState();
 
-    switch (props.engine) {
-        case "PETROL":
-            engine = "Petrol"
-            engineClass = "bi bi-fuel-pump-fill"
-            break;
-
-        case "ELECTRIC":
-            engine = "Electric"
-            engineClass = "bi bi-ev-station-fill"
-            break;
-
-        case "HYBRID":
-            engine = "Hybrid"
-            engineClass = "bi bi-fuel-pump-fill"
-            break;
-
-        case "DIESEL":
-            engine = "Diesel"
-            engineClass = "bi bi-fuel-pump-diesel-fill"
-            break;
-    }
+    getEngine(props.engine).then(data => {
+        switch (data.engine) {
+            case "PETROL":
+                setEngine("Petrol");
+                setEngineClass("bi bi-fuel-pump-fill");
+                break;
     
-    switch (props.trans) {
-        case "AUTOMATIC":
-            transm = "Auto"
-            transmClass = "bi bi-ev-front-fill"
-            break;
+            case "ELECTRIC":
+                setEngine("Electric");
+                setEngineClass("bi bi-ev-station-fill");
+                break;
+    
+            case "HYBRID":
+                setEngine("Hybrid");
+                setEngineClass("bi bi-fuel-pump-fill");
+                break;
+    
+            case "DIESEL":
+                setEngine("Diesel");
+                setEngineClass("bi bi-fuel-pump-diesel-fill");
+                break;
+        }
+    });
+    
+    getTransmission(props.trans).then(data => {
+        switch (data.transmission) {
+            case "AUTOMATIC":
+                setTransm("Auto");
+                setTransmClass("bi bi-ev-front-fill");
+                break;
 
-        case "MANUAL":
-            transm = "Manu"
-            transmClass = "bi bi-car-front"
-            break;
-    }
+            case "MANUAL":
+                setTransm("Manu");
+                setTransmClass("bi bi-car-front");
+                break;
+        }
+    });
 
     return <div className="my-card" style={props.total ? {width: 900} : {width:700}}>
             <div className="my-card-body">
@@ -49,7 +55,9 @@ export function CarViewFullSize(props) {
 
                     <div className="pd-h-2">
                         <h2>{props.name}</h2>
-                        {props.withdriver && <div className="mr-t-1"><BoxIconSmall title="With driver" iconClass="bi bi-person-fill-check"></BoxIconSmall></div>}
+                        {props.withdriver && <div className="mr-t-1">
+                            <BoxIconSmall title="With driver" iconClass="bi bi-person-fill-check"></BoxIconSmall></div>
+                        }
                         <p className="small-text">{props.brand}</p>
 
                         <div className="container-fuild gap-small">

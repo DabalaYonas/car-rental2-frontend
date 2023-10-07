@@ -5,7 +5,7 @@ import { CarViewFullSize } from "./component/CarViewFullSize";
 import { Navbar } from "./component/Navigation";
 import { SucceessfulCard } from "./component/SuccessfulCard";
 import TelebirrForm from "./component/TelebirrForm";
-import {getPayments} from "./datas/payments";
+import { getPayments } from "./component/datas/payments";
 import axios from "axios";
 import Button from "./component/Button";
 import FooterView from "./component/FooterView";

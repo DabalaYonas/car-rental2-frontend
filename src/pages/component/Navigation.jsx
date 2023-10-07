@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import logo from "./images/logo3.png";
 
 export function Navbar(props) {
   var loction = useLocation();
@@ -25,22 +26,16 @@ export function Navbar(props) {
     }
   }
     return <nav className={"navbar nav-bg pd-v-2 pd-h-6 " + props.bg}>
-      <a className="nav-logo" href="#">Car Rental</a>
+      <a className="nav-logo" href="#"><img src={logo} /></a>
       <ul className="nav-item-list">
         <li className="nav-item">
           <Link to="/" className="nav-link active" aria-current="page" id="home-link">Home</Link>
         </li>
         <li className="nav-item">
-          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/cars" className="nav-link">Car List</Link>
         </li>
         <li className="nav-item">
-          <Link to="/services" className="nav-link">Services</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/car-list" className="nav-link">Car List</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/contact" className="nav-link">Contact</Link>
+          <Link to="/contact" className="nav-link">Contact us</Link>
         </li>
       {/* {username != null ? <div className="container-fluid">
         <img src={imgProfile} className="profile-img" />

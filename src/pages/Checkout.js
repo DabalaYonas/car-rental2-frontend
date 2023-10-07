@@ -10,6 +10,7 @@ import { CarViewFullSize } from "./component/CarViewFullSize";
 import { Navbar } from "./component/Navigation"
 import FooterView from "./component/FooterView"
 import UploadView from "./component/UploadView/UploadView"
+import { getBrand } from "./component/datas/lookups"
 
 const PEND = "PENDING"
 const TELEBIRR = "TELEBIRR"
@@ -22,7 +23,7 @@ async function addDriver(driverForm) {
 }
 
 async function addCustomer(customerForm) {
-    return axios.post("http://127.0.0.1:8000/booking/customer/api/", customerForm).then(response=>response.data);
+    return axios.post("http://127.0.0.1:8000/booking/customer/api/", customerForm, {headers: {'content-type': 'multipart/form-data'}}).then(response=>response.data);
 }
 
 async function addBooking(bookingForm) {
@@ -41,12 +42,17 @@ function Checkout() {
     const [inputs, setInputs] = useState({});
     const [method, setMethod] = useState(TELEBIRR);
     var totalPrice = bookedCar.price_per_day * day_period;
+    const [brand, setBrand] = useState();
     const [driverID, setDriverID] = useState();
     const [driverDetail, setDriverDetail] = useState({});
     const [imageInput, setImageInput] = useState();
 
+    getBrand(bookedCar.brand).then(data => {
+        setBrand(data.brand)
+    });
+
     var carDetails = [{"Car name": bookedCar.name, 
-                "Car brand": bookedCar.brand,
+                "Car brand": brand,
                 "Plate number": bookedCar.plate_number,
                 "Pick up date": pickupdate,
                 "Return date": returndate,
@@ -85,15 +91,6 @@ function Checkout() {
     function handleSubmit(e) {
         e.preventDefault();
 
-        let driverForm = new FormData();
-        driverForm.append("first_name", inputs.firstname);
-        driverForm.append("last_name", inputs.lastname);
-        driverForm.append("email", inputs.email);
-        driverForm.append("phone_number", inputs.phonenumber);
-        driverForm.append("gender", inputs.gender);
-        driverForm.append("age", inputs.age);
-        driverForm.append("is_customer", true);
-
         let bookingForm = new FormData();
         bookingForm.append("pick_up_date", pickupdate);
         bookingForm.append("return_date", returndate);
@@ -106,6 +103,8 @@ function Checkout() {
         customerForm.append("email", inputs.email);
         customerForm.append("phone_number", inputs.phonenumber);
         customerForm.append("age", inputs.age);
+        customerForm.append("gender", inputs.gender);
+        // customerForm.append("driver_license", imageInput, imageInput.name);
 
         let paymentForm = new FormData();
         paymentForm.append("amount", totalPrice);
@@ -114,43 +113,29 @@ function Checkout() {
         paymentForm.append("status", NOT_PAID);
         paymentForm.append("description", "");
 
-        if (bookedCar.with_driver) {
-            addCustomer(customerForm).then(customerResponse => {
-                bookingForm.append("booked_driver", driverID);
-                bookingForm.append("customer", customerResponse.id);
+        // Add customer details to database
+        addCustomer(customerForm).then(customerResponse => {
+            bookingForm.append("customer", customerResponse.id);
+            
+            // Add booking details to database
+            addBooking(bookingForm).then(bookingResponse=>{
+                paymentForm.append("booking", bookingResponse.id);
 
-                addBooking(bookingForm).then(bookingResponse=>{
-                    paymentForm.append("booking", bookingResponse.id);
-
-                    addPayment(paymentForm).then(r4=>{
+                // Add payment details to database
+                addPayment(paymentForm).then(r4=>{
+                    if (bookedCar.with_driver) {
                         navigate("/payment", {state: {driverDetails: driverDetail, carDetails: carDetails, payment: r4, bookedCar: bookedCar}});
-                    });
+                    } else {
+                        navigate("/payment", {state: {driverDetails: inputs, carDetails: carDetails, payment: r4, bookedCar: bookedCar}});
+                    }
+                    // navigate("/payment", {state: {driverDetails: driverDetail, carDetails: carDetails, payment: r4, bookedCar: bookedCar}});
                 });
             });
-        } else {
-            driverForm.append("driver_license", imageInput, imageInput.name);
-            addDriver(driverForm, {headers: {'content-type': 'multipart/form-data'}}).then(r1=> {  
-                addCustomer(customerForm).then(customerResponse => {
-                    bookingForm.append("booked_driver", r1.id);
-                    bookingForm.append("customer", customerResponse.id);
-
-                    console.log(bookingForm);
-    
-                    addBooking(bookingForm).then(bookingResponse=>{
-                        paymentForm.append("booking", bookingResponse.id);
-    
-                        addPayment(paymentForm).then(r4=>{
-                            navigate("/payment", {state: {driverDetails: inputs, carDetails: carDetails, payment: r4, bookedCar: bookedCar}});
-                        });
-                    });
-                });
-            });
-        }
+        });
 
     }
 
     return <>
-
         <Navbar bg="nav-bg box-shadow"></Navbar>
         <div className="center-align main">
             <div>
@@ -158,8 +143,7 @@ function Checkout() {
                     seat={bookedCar.seat_number}
                     engine={bookedCar.engine_type}
                     trans={bookedCar.transmission_type}
-                    withdriver={bookedCar.with_driver}
-                    ></CarViewFullSize>
+                    withdriver={bookedCar.with_driver}></CarViewFullSize>
 
             <div className="my-card gap-small" style={{width: 700}}>
                 <form className="my-card-body" onSubmit={handleSubmit}>

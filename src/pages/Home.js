@@ -1,13 +1,13 @@
-import image from "./images/rent-toyota-corolla.png"
-import imgCar2 from "./images/red-car.png"
-import Button from "./component/Button"
-import FooterView from "./component/FooterView"
-import CarServiceItem from "./component/CarServiceItem"
-import DiscriptionBox from "./component/DiscriptionView"
-import { useEffect, useState } from "react"
-import { getCars } from "./datas/cars"
-import { Navbar } from "./component/Navigation"
-import { SearchView } from "./component/SearchView"
+import image from "./images/rent-toyota-corolla.png";
+import imgCar2 from "./images/red-car.png";
+import Button from "./component/Button";
+import FooterView from "./component/FooterView";
+import CarServiceItem from "./component/CarServiceItem";
+import DiscriptionBox from "./component/DiscriptionView";
+import { useEffect, useState } from "react";
+import { getCars } from "./component/datas/cars";
+import { Navbar } from "./component/Navigation";
+import { SearchView } from "./component/SearchView";
 
 
 function HeroSection() {
@@ -17,7 +17,7 @@ function HeroSection() {
     <div className="hero-content">
       <div className="my-row">
         <div className="my-col">
-          <div className="pd-v-13 pd-h-4">
+          <div className="hero-pd-t pd-h-4">
             <h3 className="hero-sub-title">Book your future car now</h3>
             <h1 className="hero-title">Easy And <span>Fast Way To Rent</span> Your Car</h1>
             <p className="small-text gap word-spacing">Unlock the freedom of the open road with our premier car rental service. Experience seamless journeys, unparalleled convenience, and exceptional value. Book your dream ride today. </p>
@@ -46,7 +46,7 @@ function Home() {
       });
       return () => mounted = false;
     }, []);
-
+    
   return <div className="smooth-scroll">
         <HeroSection></HeroSection>
         <div className="mr-b-5">
@@ -85,7 +85,18 @@ function Home() {
           <h2 className="title text-center">Our Best Cars</h2>
 
           <div className="my-row center-align">
-            {carsList.filter(item => item.is_available == true).map((car,id) => id < 3 && <CarServiceItem key={id} image={car.images} name={car.name} price={car.price_per_day} rate="4"></CarServiceItem>)}
+            {carsList.filter(item => item.is_available == true).map((car,id) => id < 3 && 
+            <CarServiceItem 
+                key={id} 
+                image={car.images} 
+                name={car.name} 
+                price={car.price_per_day} 
+                rate="4"
+                seat={car.seat_number}
+                engine={car.engine_type}
+                trans={car.transmission_type}
+                withdriver={car.with_driver}
+                carID={car.id}></CarServiceItem>)}
           </div>
           {/* <div className="container-fluid arrow-container">
             <i className="bi bi-arrow-left-circle-fill"></i>

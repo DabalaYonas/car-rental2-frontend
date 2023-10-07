@@ -17,10 +17,8 @@ function FooterView() {
           <h2>Site Map</h2>
           <ul className="footer-links">
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/service">Services</Link></li>
-            <li><Link to="/car-list">Car List</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/cars">Car List</Link></li>
+            <li><Link to="/contact">Contact us</Link></li>
           </ul>
         </div>
         <div className="gap-small">
